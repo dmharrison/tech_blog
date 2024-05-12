@@ -1,0 +1,16 @@
+<!-- In views/dashboard.handlebars -->
+
+<h1>Dashboard</h1>
+
+{{#if posts.length}}
+  <ul>
+    {{#each posts}}
+      <li>
+        <h2>{{title}}</h2>
+        <p>{{content}}</p>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No posts found.</p>
+{{/if}}
