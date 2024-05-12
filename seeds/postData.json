@@ -2,17 +2,20 @@
   {
     "title": "Enlighten yourself",
     "content": "Calling somebody else fat won't make you any skinnier. Calling someone stupid doesn't make you any smarter. And ruining Regina George's life definitely didn't make me any happier. All you can do in life is try to solve the problem in front of you.",
-    "date_created": "2024-05-10T08:00:00Z"
+    "date_created": "2024-05-10T08:00:00Z",
+    "user_id": 1
   },
   {
     "title": "Sorry",
     "content": "Gretchen, I'm sorry I laughed at you that time you got diarrhea at Barnes & Nobles.",
-    "date_created": "2024-05-10T09:00:00Z"
+    "date_created": "2024-05-10T09:00:00Z",
+    "user_id": 2
   },
   {
     "title": "Observation",
     "content": "You know who's looking fine tonight? Seth Mosakowski.",
-    "date_created": "2024-05-10T10:00:00Z"
+    "date_created": "2024-05-10T10:00:00Z",
+    "user_id": 3
   },
   {
     "title": "Sex ed",
