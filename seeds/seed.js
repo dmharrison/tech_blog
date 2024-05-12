@@ -1,25 +1,54 @@
 const sequelize = require("../config/connection");
-const { User, Project } = require("../models");
 
+// Import all models
+const { User, Post, Comment } = require("../models");
+
+// Import all seeds
 const userData = require("./userData.json");
-const projectData = require("./projectData.json");
+const postData = require("./postData.json");
+const commentData = require("./commentData.json");
 
+// Asynchronous function to seed the database
 const seedDatabase = async () => {
-  await sequelize.sync({ force: true });
+  try {
+    // Sync all models
+    await sequelize.sync({ force: true });
 
-  const users = await User.bulkCreate(userData, {
-    individualHooks: true,
-    returning: true,
-  });
-
-  for (const project of projectData) {
-    await Project.create({
-      ...project,
-      user_id: users[Math.floor(Math.random() * users.length)].id,
+    // Seed users first
+    const users = await User.bulkCreate(userData, {
+      individualHooks: true,
+      returning: true,
     });
-  }
+    console.log("Users seeded successfully");
 
-  process.exit(0);
+    // Seed posts after users
+    console.log("Seeding posts...");
+    const posts = await Post.bulkCreate(
+      postData.map((post) => ({
+        ...post,
+        userId: users.find((user) => user.id === post.userId)?.id, // Using optional chaining to handle potential undefined
+      }))
+    );
+    console.log("Posts seeded successfully");
+
+    // Seed comments after posts
+    console.log("Seeding comments...");
+    await Comment.bulkCreate(
+      commentData.map((comment) => ({
+        ...comment,
+        userId: users.find((user) => user.id === comment.userId)?.id, // Using optional chaining to handle potential undefined
+        postId: posts.find((post) => post.id === comment.postId)?.id, // Using optional chaining to handle potential undefined
+      }))
+    );
+    console.log("Comments seeded successfully");
+
+    // Log a success message
+    console.log("Database seeding completed successfully");
+  } catch (error) {
+    // Log any errors that occur during seeding
+    console.error("Error seeding database:", error);
+  }
 };
 
+// Call the seeding function
 seedDatabase();
