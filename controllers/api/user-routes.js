@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
       password: req.body.password,
     });
 
-    req.session.save(() => {
+    await req.session.save(() => {
       req.session.loggedIn = true;
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
@@ -48,8 +48,10 @@ router.post("/login", async (req, res) => {
     }
 
     req.session.save(() => {
+      console.log("Session data after login:", req.session);
       req.session.loggedIn = true;
-
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
       res
         .status(200)
         .json({ user: dbUserData, message: "You are now logged in!" });
