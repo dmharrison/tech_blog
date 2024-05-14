@@ -29,4 +29,23 @@ router.get("/", withAuth, async (req, res) => {
   }
 });
 
+router.get("/post/:postId", withAuth, async (req, res) => {
+  try {
+    // Get the post ID from request parameters
+    const postId = req.params.postId;
+
+    // Fetch the post from the database
+    const post = await Post.findByPk(postId);
+
+    // Check if the post exists
+    if (!post) {
+      return res.status(404).json({ message: "Post not found!" });
+    }
+
+    // Render the post view with the retrieved post data
+    res.render("post", { post, loggedIn: true });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;

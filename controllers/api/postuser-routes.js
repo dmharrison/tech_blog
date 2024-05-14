@@ -35,5 +35,37 @@ router.delete("/:id", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.put("/:id", withAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    const post = await Post.update(
+      { title, content },
+      {
+        where: {
+          id,
+          user_id: req.session.user_id, // Ensure that only the post owner can update it
+        },
+      }
+    );
+
+    // Check if the post exists
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // Update the post with new data
+    post.title = title;
+    post.content = content;
+
+    // Save the updated post
+    await post.save();
+
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
