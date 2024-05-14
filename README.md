@@ -80,4 +80,4 @@ https://tech-blog-yihd.onrender.com/
 
 ## GitHub Repo
 
-https://github.com/dmharrison/tech_blogLinks to an external site.
+https://github.com/dmharrison/tech_blog
