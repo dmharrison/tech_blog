@@ -1,0 +1,19 @@
+<!-- In views/editPost.handlebars -->
+
+<h2>Would You like to edit or delete any of these posts?</h2>
+
+{{#if posts.length}}
+    <div class="posts">
+        {{#each posts}}
+            <div class="card">
+                <h2>{{title}}</h2>
+                <p>{{content}}</p>
+                <button class="delete-post" data-post-id="{{id}}">Delete</button>
+                <button class="update-post" data-post-id="{{id}}">Update</button>
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    <p>No posts found.</p>
+{{/if}}
+<script src="/js/editPost.js"></script>

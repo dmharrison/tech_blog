@@ -1,10 +1,10 @@
 <!-- In views/dashboard.handlebars -->
+{{> newPost}}
 
-<h1>Dashboard</h1>
-
-    {{#if userPosts.length}}
+<h1>Your Previous Posts</h1>
+    {{#if posts.length}}
         <div class="posts">
-            {{#each userPosts}}
+            {{#each posts}}
                 <div class="card">
                     <h2>{{title}}</h2>
                     <p>{{content}}</p>
@@ -15,12 +15,5 @@
         <p>No posts found.</p>
     {{/if}}
 
-   <form id="new-post-form" action="/api/posts" method="POST" class="card">
-    <h2>Create New Post</h2>
-    <label for="post-title">Title:</label>
-    <input type="text" id="post-title" name="title">
-    <label for="post-content">Content:</label>
-    <textarea id="post-content" name="content"></textarea>
-    <button type="submit">Post</button>
-</form>
-<script src="/js/newPost.js"></script>
+   
+   {{> editPost}}
