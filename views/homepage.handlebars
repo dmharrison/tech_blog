@@ -15,8 +15,17 @@
         <p>
           {{content}}
         </p>
+        <form id="comment-form-{{id}}">
+          <input type="hidden" name="post-id" value="{{id}}">
+          <textarea name="comment-body" placeholder="Enter your comment"></textarea>
+          <button type="submit" onclick="submitCommentForm('{{id}}')">Comment</button>
+        </form>
       </div>
-      {{!-- {{> comments}} --}}
+      {{> comments}}
     </div>
   {{/each}}
 </div>
+
+<script>src="./js/comment.js"
+ 
+</script>

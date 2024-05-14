@@ -20,5 +20,29 @@ router.post("/", withAuth, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+// Handle comment submission
+router.post("/:postId", async (req, res) => {
+  try {
+    // Extract comment data from the request body
+    const { comment_text, user_id } = req.body;
+    const postId = req.params.postId;
+
+    // Create the comment in the database
+    const newComment = await Comment.create({
+      comment_text,
+      user_id,
+      post_id: postId, // Associate the comment with the post
+    });
+
+    // Optionally, you can redirect the user back to the post page
+    res.redirect(`/post/${postId}`);
+
+    // Or send a JSON response indicating success
+    // res.status(201).json({ message: 'Comment added successfully', comment: newComment });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 module.exports = router;

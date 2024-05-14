@@ -40,7 +40,41 @@ const commentFormHandler = async function (event) {
     // Handle errors during the fetch request (e.g., network issues)
   }
 };
+function submitCommentForm(postId) {
+  const commentText = document.querySelector(
+    `#comment-form-${postId} textarea[name="comment-body"]`
+  ).value;
+  if (!commentText.trim()) {
+    console.error("Please enter a comment before submitting.");
+    return;
+  }
 
+  fetch("/api/comments", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      post_id: postId,
+      comment_text: commentText,
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        console.log("Comment submitted successfully!");
+        // You can perform any additional actions here (e.g., updating UI)
+      } else {
+        return response.json().then((errorData) => {
+          console.error("Error submitting comment:", errorData);
+          // You can handle specific error scenarios here
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error submitting comment:", error);
+      // Handle other types of errors (e.g., network issues)
+    });
+}
 document
   .querySelector("#new-comment-form")
   .addEventListener("submit", commentFormHandler);
