@@ -1,7 +1,9 @@
 {{#each comments}}
-<div class="comment">
+  <div class="comment">
     <p>{{comment_text}}</p>
-    <p>Posted by: {{username}}</p>
-    <p>Date: {{date_created}}</p>
-</div>
+    <p>Posted by: {{user.name}}</p>
+    <p>Date: {{formatDate date_created}}</p>
+  </div>
+{{else}}
+  <p>No comments yet.</p>
 {{/each}}

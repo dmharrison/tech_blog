@@ -45,6 +45,7 @@ router.get("/post/:postId", withAuth, async (req, res) => {
     // Render the post view with the retrieved post data
     res.render("post", { post, loggedIn: true });
   } catch (err) {
+    console.log(err, "err");
     res.status(500).json(err);
   }
 });

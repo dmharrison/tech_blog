@@ -4,7 +4,6 @@ const withAuth = require("../utils/authGuard");
 
 router.get("/", async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
     const postData = await Post.findAll({
       include: [
         {
@@ -34,18 +33,29 @@ router.get("/post/:id", async (req, res) => {
       include: [
         {
           model: User,
+          attributes: ["name"],
+        },
+        {
+          model: Comment,
+          include: [User], // Include User for each Comment
         },
       ],
     });
 
-    const posts = post.get({ plain: true });
+    if (!postData) {
+      res.status(404).json({ message: "No post found with this id!" });
+      return;
+    }
+
+    const post = postData.get({ plain: true });
 
     res.render("post", {
-      posts,
+      post,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.status(500).json({ message: "An error occurred", error: err.message });
   }
 });
 

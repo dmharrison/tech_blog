@@ -16,6 +16,7 @@ router.post("/", withAuth, async (req, res) => {
 
     res.status(201).json(newComment);
   } catch (err) {
+    console.log(err, "err");
     res.status(500).json({ message: "Internal server error" });
   }
 });

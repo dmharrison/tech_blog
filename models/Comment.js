@@ -31,11 +31,6 @@ Comment.init(
         key: "id",
       },
     },
-    date_created: {
-      // Add the date_created field here
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
     sequelize,
